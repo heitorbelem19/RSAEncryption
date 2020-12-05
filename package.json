@@ -1,0 +1,30 @@
+{
+  "name": "rsaencryption",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heitorbelem19/RSAEncryption.git"
+  },
+  "keywords": [
+    "RSA",
+    "SHA3",
+    "Segurança"
+  ],
+  "author": "Heitor de Lima Belém",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heitorbelem19/RSAEncryption/issues"
+  },
+  "homepage": "https://github.com/heitorbelem19/RSAEncryption#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
+    "fs": "0.0.1-security"
+  }
+}
