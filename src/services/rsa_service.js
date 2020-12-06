@@ -21,55 +21,55 @@ class rsaService {
         }
       }
     );
-    fs.writeFileSync('private.key', privateKey.toString('hex'));
-    fs.writeFileSync('public.pub', publicKey.toString('hex'));
+    fs.writeFileSync('./rsaKeys/private.key', privateKey.toString('hex'));
+    fs.writeFileSync('./rsaKeys/public.pub', publicKey.toString('hex'));
   }
 
   encrypt = (data) => {
 
     var encrypted = crypto.publicEncrypt(
       {
-        key: fs.readFileSync('public.pub'),
+        key: fs.readFileSync('./rsaKeys/public.pub'),
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
         oaepHash: "sha3-256",
       },
       Buffer.from(data)
     );
-    fs.writeFileSync("encryptedPlanText.txt", encrypted);
+    fs.writeFileSync("./encryptedFiles/encryptedPlanText.txt", encrypted);
     return encrypted;
   }
 
   decrypt = (data) => {
     const decrypted = crypto.privateDecrypt(
       {
-        key: fs.readFileSync('private.key'),
+        key: fs.readFileSync('./rsaKeys/private.key'),
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
         oaepHash: "sha3-256",
         passphrase: "Top Secret"
       },
       data
     );
-    fs.writeFileSync("decryptedPlanText.txt", decrypted.toString("utf-8"));
+    fs.writeFileSync("./decryptedFiles/decryptedPlanText.txt", decrypted.toString("utf-8"));
     return decrypted;
   }
 
   rsaSignature = (data) => {
     var signature = crypto.sign("sha3-256", Buffer.from(data), {
-      key: fs.readFileSync("private.key"),
+      key: fs.readFileSync("./rsaKeys/private.key"),
       padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
       passphrase: "Top Secret"
     });
     return signature;
   }
 
-  rsaVerified = (data, signature) => {
+  rsaVerified = (data) => {
     var is = crypto.verify(
       "sha3-256", Buffer.from(data), 
       {
-        key: fs.readFileSync("public.pub"),
+        key: fs.readFileSync("./rsaKeys/public.pub"),
         padding: crypto.constants.RSA_PKCS1_PSS_PADDING
       },
-      signature
+      fs.readFileSync("./rsaSign/signature.txt")
     )
     return is;
   }
